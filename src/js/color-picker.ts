@@ -15,7 +15,7 @@ const sampleColorY = canvas.height - sampleColorPadding - sampleColorRadius
 const hueBarHeight = 20
 const hueBarX = sampleColorPadding * 2 + sampleColorRadius * 2
 const hueBarY = canvas.height - sampleColorPadding - sampleColorRadius - hueBarHeight / 2
-const hueBarWidth = canvasWidth
+const hueBarWidth = canvasWidth - hueBarX
 
 if (ctx) {
     // 底色
@@ -40,10 +40,11 @@ if (ctx) {
     ctx.beginPath()
     ctx.arc(sampleColorX, sampleColorY, sampleColorRadius, 0, Math.PI * 2)
     ctx.fillStyle = '#FF0000'
+    ctx.closePath()
     ctx.fill()
 
     // 色环
-    const hueGrd = ctx.createLinearGradient(0, 0, canvasWidth, 0)
+    const hueGrd = ctx.createLinearGradient(hueBarX, hueBarY, hueBarX + hueBarWidth, hueBarY)
     hueGrd.addColorStop(0 / 6, 'rgb(255, 0, 0)')
     hueGrd.addColorStop(1 / 6, 'rgb(255, 255, 0)')
     hueGrd.addColorStop(2 / 6, 'rgb(0, 255, 0)')
