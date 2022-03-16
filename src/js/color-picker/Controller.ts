@@ -83,7 +83,7 @@ export default class Controller {
         htmlElement.inputB.addEventListener("input", rgbListener)
 
 
-        const dragSvListener = (event: MouseEvent) => {
+        const mouseDragSvListener = (event: MouseEvent) => {
             if (event.buttons == 0 || event.button != 0) {
                 return
             }
@@ -94,12 +94,27 @@ export default class Controller {
                 listener.call(this, s, v)
             }
         }
-        htmlElement.panelSv.addEventListener("mousedown", dragSvListener)
-        htmlElement.panelSv.addEventListener("mouseup", dragSvListener)
-        htmlElement.panelSv.addEventListener("mousemove", dragSvListener)
+        htmlElement.panelSv.addEventListener("mousedown", mouseDragSvListener)
+        htmlElement.panelSv.addEventListener("mouseup", mouseDragSvListener)
+        htmlElement.panelSv.addEventListener("mousemove", mouseDragSvListener)
 
 
-        const dragHueListener = (event: MouseEvent) => {
+        const touchDragSvListener = (event: TouchEvent) => {
+            if (event.touches.length <= 0) {
+                return
+            }
+            const touch = event.touches[0]
+            const listener = this.svChangeListener;
+            if (listener) {
+                const s = (touch.clientX - htmlElement.panelSv.offsetLeft) / htmlElement.panelSv.width * 100;
+                const v = (1 - (touch.clientY - htmlElement.panelSv.offsetTop) / htmlElement.panelSv.height) * 100
+                listener.call(this, s, v)
+            }
+        }
+        htmlElement.panelSv.addEventListener("touchmove", touchDragSvListener)
+
+
+        const mouseDragHueListener = (event: MouseEvent) => {
             if (event.buttons == 0 || event.button != 0) {
                 return
             }
@@ -109,9 +124,24 @@ export default class Controller {
                 listener.call(this, hue)
             }
         }
-        htmlElement.panelHue.addEventListener("mousedown", dragHueListener)
-        htmlElement.panelHue.addEventListener("mouseup", dragHueListener)
-        htmlElement.panelHue.addEventListener("mousemove", dragHueListener)
+        htmlElement.panelHue.addEventListener("mousedown", mouseDragHueListener)
+        htmlElement.panelHue.addEventListener("mouseup", mouseDragHueListener)
+        htmlElement.panelHue.addEventListener("mousemove", mouseDragHueListener)
+
+
+        const touchDragHueListener = (event: TouchEvent) => {
+            if (event.touches.length <= 0) {
+                return
+            }
+            const touch = event.touches[0]
+            const listener = this.hueChangeListener;
+            if (listener) {
+                const hue = (touch.clientX - htmlElement.panelHue.offsetLeft) / htmlElement.panelHue.width * 360;
+                listener.call(this, hue)
+            }
+        }
+        htmlElement.panelHue.addEventListener("touchstart", touchDragHueListener)
+        htmlElement.panelHue.addEventListener("touchmove", touchDragHueListener)
     }
 
 }
