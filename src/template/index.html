@@ -3,14 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Color Picker</title>
+    <style>
+        .circle {
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
 
 <div>
-    <input type="color" value="#000000">
+
+    <p>浏览器调色器</p>
+    <input type="color" value="#000000"/>
+    <hr/>
+
 </div>
 <div>
-    <canvas id="color-picker" width="400px" height="400px" style="float: left"></canvas>
+
+    <p>自定义调色器</p>
+
+    <div id="color-picker">
+        <button id="btn-color-picker" style="background-color: black; color: transparent">Color Picker</button>
+        <div id="color-dashboard" style="width: 400px; margin-top: 20px; visibility: hidden;">
+            <div>
+
+                <!--饱和度和亮度调整板-->
+                <canvas id="panel-sv" width="400px" height="240px">
+                </canvas>
+
+            </div>
+
+            <div>
+
+                <!--预览-->
+                <div id="panel-preview" class="circle" style="width: 40px; height: 40px; margin: 20px; float: left">
+                </div>
+
+                <!--色相调整条-->
+                <canvas id="panel-hue" width="320px" height="30px"
+                        style="margin-top: 25px; margin-bottom: 25px; float: right">
+                </canvas>
+
+            </div>
+
+            <div id="txt-hsv" style="margin: 20px">
+                H: <input id="input-hsv-h" type="number" value="0" min="0" max="360" style="text-align: center"/>&nbsp;°&nbsp;&nbsp;&nbsp;
+                S: <input id="input-hsv-s" type="number" value="0" min="0" max="100" style="text-align: center"/>&nbsp;%&nbsp;&nbsp;&nbsp;
+                V: <input id="input-hsv-v" type="number" value="0" min="0" max="100" style="text-align: center"/>&nbsp;%
+            </div>
+
+            <div id="txt-hsl" style="margin: 20px">
+                H: <input id="input-hsl-h" type="number" value="0" min="0" max="360" style="text-align: center"/>&nbsp;°&nbsp;&nbsp;&nbsp;
+                S: <input id="input-hsl-s" type="number" value="0" min="0" max="100" style="text-align: center"/>&nbsp;%&nbsp;&nbsp;&nbsp;
+                L: <input id="input-hsl-l" type="number" value="0" min="0" max="100" style="text-align: center"/>&nbsp;%
+            </div>
+
+            <div id="txt-rgb" style="margin: 20px">
+                R: <input id="input-r" type="number" value="0" min="0" max="255" style="text-align: center"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                G: <input id="input-g" type="number" value="0" min="0" max="255" style="text-align: center"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                B: <input id="input-b" type="number" value="0" min="0" max="255" style="text-align: center"/>
+
+            </div>
+
+            <div id="txt-hex" style="margin: 20px">
+                HEX: <input id="input-hex" type="text" value="#000000" minlength="7" maxlength="7"
+                            style="width: 60px; text-align: center"/>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
